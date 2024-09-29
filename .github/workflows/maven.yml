@@ -59,11 +59,14 @@ jobs:
         git config --global commit.gpgsign true
         git config --global user.signingkey $(gpg --list-secret-keys --keyid-format=long $2 | grep 'sec' | awk 'match($0, /[0-9A-Z]{16}/) {print substr($0, RSTART, RLENGTH)}')
 
-    - uses: wemogy/next-version-action@2.0.2
-      id: release-version
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        projects: 'Single'
+    - name: Get next version
+      id: get_next_version
+      uses: thenativeweb/get-next-version@main
+
+    - name: Show the next version
+      run: |
+        echo ${{ steps.get_next_version.outputs.version }}
+        echo ${{ steps.get_next_version.outputs.hasNextVersion }}
         
     - uses: actions/checkout@v4
       with:
@@ -74,6 +77,6 @@ jobs:
         echo $(date) >> README.md
         git add .
         git commit -m "Testing commit"
-        git tag ${{ steps.release-version.outputs.next-version }}
+        git tag ${{ steps.get_next_version.outputs.version }}
         git push --tags
 
