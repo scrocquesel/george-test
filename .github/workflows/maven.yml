@@ -58,6 +58,12 @@ jobs:
         git config --global user.email '${{ steps.get-user-id.outputs.user-id }}+${{ steps.app-token.outputs.app-slug }}[bot]@users.noreply.github.com>'
         git config --global commit.gpgsign true
         git config --global user.signingkey $(gpg --list-secret-keys --keyid-format=long $2 | grep 'sec' | awk 'match($0, /[0-9A-Z]{16}/) {print substr($0, RSTART, RLENGTH)}')
+
+    - uses: wemogy/next-version-action@2.0.2
+      id: release-version
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        projects: 'Single'
         
     - uses: actions/checkout@v4
       with:
@@ -68,5 +74,6 @@ jobs:
         echo $(date) >> README.md
         git add .
         git commit -m "Testing commit"
-        git push
+        git tag ${{ steps.release-version.outputs.next-version }}
+        git push --tags
 
