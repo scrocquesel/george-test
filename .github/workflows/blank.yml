@@ -18,7 +18,7 @@ jobs:
   get-version:
     runs-on: ubuntu-latest
     outputs:
-      version: ${{ steps.set-version.outputs.version }}
+      version: ${{ steps.out.outputs.version }}
     steps:
       - name: Output release version
         id: out
