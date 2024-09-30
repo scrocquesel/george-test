@@ -22,7 +22,9 @@ jobs:
     steps:
       - name: Output release version
         id: out
-        run: echo "release-version=${DISPATCH_VERSION:-${CALL_VERSION}}" >> $GITHUB_OUTPUT
+        run: |
+          echo ${DISPATCH_VERSION:-${CALL_VERSION}}
+          echo "release-version=${DISPATCH_VERSION:-${CALL_VERSION}}" >> $GITHUB_OUTPUT
         env:
           DISPATCH_VERSION: ${{ github.event.inputs.tag}}
           CALL_VERSION: ${{ github.ref_name }}
