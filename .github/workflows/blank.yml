@@ -9,8 +9,6 @@ on:
       tag:
         description: 'Tag to release'
         required: true
-env:
-  RELEASE_VERSION: ${{github.event.inputs.tag || github.ref_name}}
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -21,5 +19,7 @@ jobs:
     name: Perform Release
     uses: quarkiverse/.github/.github/workflows/perform-release.yml@main
     secrets: inherit
+    env:
+      RELEASE_VERSION: ${{github.event.inputs.tag || github.ref_name}}
     with:
       version: ${{env.RELEASE_VERSION}}
