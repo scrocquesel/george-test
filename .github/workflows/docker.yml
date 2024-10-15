@@ -19,7 +19,7 @@ jobs:
           docker pull hello-world
           docker tag hello-world:latest ${{github.repository}}:latest
 
-      - name: Save the Docker Image
+      - name: Save the Docker Image to a file
         run: docker save "${{github.repository}}:latest" -o artifact.tar.gz
 
       - name: Upload the Docker Image
@@ -30,45 +30,9 @@ jobs:
           retention-days: 1
 
   publish_image:
-    uses: quarkiverse/.github/.github/workflows/deploy-quay.yml@main
+    uses: quarkiverse/.github/.github/workflows/deploy-image.yml@main
     needs: build
     secrets: inherit
     with:
       image_name: ${{github.repository}}
       image_tag: latest
-#      - name: Save the Docker Image
-#        run: docker save ${{github.repository}}:latest -o hello-world.tar.gz
-#
-#      - name: Generate artifact attestation
-#        id: attest_build_provenance
-#        uses: actions/attest-build-provenance@v1
-#        with:
-#          subject-path: hello-world.tar.gz
-#
-#      - name: Upload the Docker Image
-#        uses: actions/upload-artifact@v4
-#        with:
-#          name: artifact
-#          path: hello-world.tar.gz
-#          retention-days: 1
-#
-#      - uses: actions/create-github-app-token@v1
-#        id: app-token
-#        name: Create GitHub App Token
-#        with:
-#          app-id: ${{ vars.CI_APP_ID }}
-#          private-key: ${{ secrets.CI_APP_PRIVATE_KEY }}
-#          repositories: quarkiverse-release
-#
-#      - name: Invoke Deploy to Quay workflow
-#        run: |
-#          gh workflow run deploy-quay.yml -R quarkiverse/quarkiverse-release \
-#            -f image_name=hello-world \
-#            -f image_tag=latest \
-#            -f github_repository=${GH_REPO} \
-#            -f run_id=${GH_RUN_ID}
-#        env:
-#          GH_TOKEN: ${{ steps.app-token.outputs.token }}
-#          GH_REPO: ${{ github.repository }}
-#          GH_RUN_ID: ${{ github.run_id }}
-#          ARTIFACT_NAME: ${{ github.event.repository.name }}
