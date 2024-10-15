@@ -8,6 +8,8 @@ concurrency:
 
 permissions:
   actions: write
+  attestations: write
+  id-token: write
 
 jobs:
   build:
