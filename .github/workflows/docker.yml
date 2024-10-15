@@ -7,9 +7,7 @@ concurrency:
   cancel-in-progress: true
 
 permissions:
-  actions: write
   attestations: write
-  id-token: write
 
 jobs:
   build:
@@ -34,6 +32,14 @@ jobs:
           path: hello-world.tar.gz
           retention-days: 1
 
+      - uses: actions/create-github-app-token@v1
+        id: app-token
+        name: Create GitHub App Token
+        with:
+          app-id: ${{ vars.CI_APP_ID }}
+          private-key: ${{ secrets.CI_APP_PRIVATE_KEY }}
+          repositories: quarkiverse-release
+
       - name: Invoke Deploy to Quay workflow
         run: |
           gh workflow run deploy-quay.yml -R quarkiverse/quarkiverse-release \
@@ -42,7 +48,7 @@ jobs:
             -f github_repository=${GH_REPO} \
             -f run_id=${GH_RUN_ID} 
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
           GH_REPO: ${{ github.repository }}
           GH_RUN_ID: ${{ github.run_id }}
           ARTIFACT_NAME: ${{ github.event.repository.name }}
