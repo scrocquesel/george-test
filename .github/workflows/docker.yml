@@ -18,6 +18,17 @@ jobs:
         run: |
           docker pull hello-world
           docker tag hello-world:latest ${{github.repository}}:latest
+
+      - name: Save the Docker Image
+        run: docker save "${{github.repository}}:${PAYLOAD_IMAGE_TAG}" -o artifact.tar.gz
+
+      - name: Upload the Docker Image
+        uses: actions/upload-artifact@v4
+        with:
+          name: artifact
+          path: artifact.tar.gz
+          retention-days: 1
+
   publish_image:
     uses: quarkiverse/.github/.github/workflows/deploy-quay.yml@main
     with:
