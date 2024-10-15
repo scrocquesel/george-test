@@ -21,11 +21,13 @@ jobs:
           name: artifact
           path: hello-world.tar.gz
           retention-days: 1
-      - name: Publish Docker Image
-        uses: quarkiverse/quarkiverse-release/.github/workflows/deploy-quay.yml@main
-        with:
-          image_name: hello-world
-          image_tag: latest
-          github_repository: ${{ github.repository }}
-          run_id: ${{ github.run_id }}
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+  publish:
+    name: Publish Docker Image
+    needs: build
+    uses: quarkiverse/quarkiverse-release/.github/workflows/deploy-quay.yml@main
+    with:
+      image_name: hello-world
+      image_tag: latest
+      github_repository: ${{ github.repository }}
+      run_id: ${{ github.run_id }}
+      github_token: ${{ secrets.GITHUB_TOKEN }}
