@@ -1,0 +1,31 @@
+name: Publish Docker
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create Docker Image
+        run: docker pull hello-world
+      - name: Save the Docker Image
+        run: docker save hello-world -o hello-world.tar.gz
+      - name: Upload the Docker Image
+        uses: actions/upload-artifact@v4
+        with:
+          name: artifact
+          path: hello-world.tar.gz
+          retention-days: 1
+      - name: Publish Docker Image
+        uses: quarkiverse/quarkiverse-release/.github/workflows/deploy-quay.yml@main
+        with:
+          image_name: hello-world
+          image_tag: latest
+          github_repository: ${{ github.repository }}
+          run_id: ${{ github.run_id }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
