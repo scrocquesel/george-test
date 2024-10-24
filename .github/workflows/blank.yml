@@ -17,7 +17,7 @@ jobs:
   perform-release:
     runs-on: ubuntu-latest
     steps:
-      - uses: action/checkout@v4
+      - uses: actions/checkout@v4
       - uses: radcortez/project-metadata-action@main
         name: Retrieve project metadata
         id: metadata
