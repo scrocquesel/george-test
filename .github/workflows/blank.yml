@@ -29,7 +29,7 @@ jobs:
         run: gh release create ${CURRENT_VERSION} --generate-notes --latest=${LATEST_RELEASE} --prerelease=${PRE_RELEASE}
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          CURRENT_VERSION: ${{steps.metadata.outputs.current-version}
+          CURRENT_VERSION: ${{steps.metadata.outputs.current-version}}
           PRE_RELEASE: ${{ fromJSON(steps.metadata.outputs.pre-release) == true }}
           LATEST_RELEASE: ${{ !steps.metadata.outputs.latest || fromJSON(steps.metadata.outputs.latest) == true }}
 
