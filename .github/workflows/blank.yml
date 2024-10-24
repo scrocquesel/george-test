@@ -10,6 +10,9 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
+permissions: 
+  contents: write
+
 jobs:
   perform-release:
     runs-on: ubuntu-latest
@@ -25,7 +28,8 @@ jobs:
       - name: Create GitHub Release
         run: gh release create ${CURRENT_VERSION} --generate-notes --latest=${LATEST_RELEASE} --prerelease=${PRE_RELEASE}
         env:
-          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CURRENT_VERSION: ${{steps.metadata.outputs.current-version}
           PRE_RELEASE: ${{ fromJSON(steps.metadata.outputs.pre-release) == true }}
           LATEST_RELEASE: ${{ !steps.metadata.outputs.latest || fromJSON(steps.metadata.outputs.latest) == true }}
 
