@@ -5,10 +5,6 @@ on:
     tags:
       - '*'
   workflow_dispatch:
-    inputs:
-      tag:
-        description: 'Tag to release'
-        required: true
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -16,8 +12,21 @@ concurrency:
 
 jobs:
   perform-release:
-    name: Perform Release
-    uses: quarkiverse/.github/.github/workflows/perform-release.yml@main
-    secrets: inherit
-    with:
-      version: ${{github.event.inputs.tag || github.ref_name}}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: radcortez/project-metadata-action@main
+        name: Retrieve project metadata
+        id: metadata
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          metadata-file-path: '.github/project.yml'
+          local-file: true
+    
+      - name: Create GitHub Release
+        run: gh release create ${CURRENT_VERSION} --generate-notes --latest=${LATEST_RELEASE} --prerelease=${PRE_RELEASE}
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          PRE_RELEASE: ${{ fromJSON(steps.metadata.outputs.pre-release) == true }}
+          LATEST_RELEASE: ${{ !steps.metadata.outputs.latest || fromJSON(steps.metadata.outputs.latest) == true }}
+
+      
