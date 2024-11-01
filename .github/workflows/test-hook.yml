@@ -1,23 +1,18 @@
 name: Test hook
 on:
-  workflow_dispatch:
-    inputs:
-      version:
-        description: 'Version to release'
-        required: true
+  pull_request:
+    types: [ closed ]
+    paths:
+      - '.github/project.yml'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
-permissions:
-  attestations: write
-  id-token: write
-  contents: write
-  
 jobs:
   prepare-release:
     name: Prepare Release
+    if: ${{ github.event.pull_request.merged == true}}
     uses: quarkiverse/.github/.github/workflows/prepare-release.yml@hooks
     with:
       java_version: 23 # use 23 so we can support running the Llama3 module on anything 21+
