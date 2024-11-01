@@ -1,0 +1,23 @@
+name: Test hook
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to release'
+        required: true
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  attestations: write
+  id-token: write
+
+jobs:
+  prepare-release:
+    name: Prepare Release
+    uses: quarkiverse/.github/.github/workflows/prepare-release.yml@main
+    with:
+      java_version: 23 # use 23 so we can support running the Llama3 module on anything 21+
+    secrets: inherit
