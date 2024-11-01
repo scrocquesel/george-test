@@ -13,7 +13,8 @@ concurrency:
 permissions:
   attestations: write
   id-token: write
-
+  contents: write
+  
 jobs:
   prepare-release:
     name: Prepare Release
