@@ -17,7 +17,7 @@ permissions:
 jobs:
   prepare-release:
     name: Prepare Release
-    uses: quarkiverse/.github/.github/workflows/prepare-release.yml@main
+    uses: quarkiverse/.github/.github/workflows/prepare-release.yml@hook
     with:
       java_version: 23 # use 23 so we can support running the Llama3 module on anything 21+
     secrets: inherit
