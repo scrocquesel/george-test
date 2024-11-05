@@ -5,7 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e414837f-48a7-4a09-9070-bafe581ddaa3" name="Changes" comment="Changes">
-      <change beforePath="$PROJECT_DIR$/.github/workflows/renovate.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/renovate.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/renovate.json" beforeDir="false" afterPath="$PROJECT_DIR$/renovate.json" afterDir="false" />
     </list>
