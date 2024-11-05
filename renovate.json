@@ -1,7 +1,7 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "postUpgradeTasks": {
-    "commands": ["git reset --hard","mvn io.quarkus.platform:quarkus-maven-plugin:3.16.1:update -N"],
+    "commands": ["mvn io.quarkus.platform:quarkus-maven-plugin:3.16.1:update -N"],
     "fileFilters": ["pom.xml"],
     "executionMode": "update"
   }
