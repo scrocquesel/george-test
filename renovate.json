@@ -5,6 +5,6 @@
     "commands": ["./mvnw io.quarkus.platform:quarkus-maven-plugin:3.16.1:update -N"],
     "fileFilters": ["pom.xml"],
     "executionMode": "update"
-  },
-  "dockerSidecarImage": "registry.access.redhat.com/quarkus/mandrel-for-jdk-21-rhel8:23.1"
+  }
+
 }
