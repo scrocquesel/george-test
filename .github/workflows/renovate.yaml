@@ -18,5 +18,9 @@ jobs:
         with:
           configurationFile: renovate-config.js
           token: ${{ secrets.GITHUB_TOKEN }}
+          docker-volumes: |
+            /tmp:/tmp ;
+            /home:/home ;
+
         env:
           LOG_LEVEL: 'debug'
