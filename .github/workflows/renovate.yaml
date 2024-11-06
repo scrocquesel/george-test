@@ -19,12 +19,12 @@ jobs:
           distribution: 'temurin'
           java-version: '21'
 
-      - uses: actions/create-github-app-token@v1
-        id: app-token
-        name: Create GitHub App Token
-        with:
-          app-id: ${{ vars.CI_APP_ID }}
-          private-key: ${{ secrets.CI_APP_PRIVATE_KEY }}
+      # - uses: actions/create-github-app-token@v1
+      #   id: app-token
+      #   name: Create GitHub App Token
+      #   with:
+      #     app-id: ${{ vars.CI_APP_ID }}
+      #     private-key: ${{ secrets.CI_APP_PRIVATE_KEY }}
               
       - name: Self-hosted Renovate
         uses: renovatebot/github-action@v40.3.4
@@ -32,6 +32,7 @@ jobs:
           configurationFile: renovate-config.js
           token: ${{ secrets.GITHUB_TOKEN }}
           #token: ${{ steps.app-token.outputs.token }}
+          mount-docker-socket: true
         env:
           LOG_LEVEL: 'debug'
           RENOVATE_PLATFORM_COMMIT: 'true'

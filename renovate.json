@@ -1,10 +1,21 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "prHourlyLimit": 0,
-  "postUpgradeTasks": {
-    "commands": ["./mvnw io.quarkus.platform:quarkus-maven-plugin:3.16.1:update -N"],
-    "fileFilters": ["pom.xml"],
-    "executionMode": "update"
-  }
-
+  "packageRules": [
+    {
+      "matchDatasources": [
+        "maven"
+      ],
+      "matchPackageNames": [
+        "io.quarkus.platform:quarkus-bom"
+      ],
+      "postUpgradeTasks": {
+        "commands": [
+          "git restore .",
+          "docker run --volume ./:/usr/src/myapp -w /usr/src/myapp --volume /tmp:/tmp --rm openjdk:21 ./mvnw io.quarkus.platform:quarkus-maven-plugin:{{{newVersion}}}:update -N"
+        ],
+        "executionMode": "update"
+      }
+    }
+  ]
 }

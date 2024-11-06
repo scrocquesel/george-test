@@ -1,6 +1,6 @@
 module.exports = {
+  "forkProcessing": "enabled", // Repository is a fork and not manually configured - skipping - did you want to run with --fork-processing=enabled?
   "autodiscover": true,
-  "autodiscoverFilter": ["quarkiverse/george-test"],
-  "allowedPostUpgradeCommands": ['^./mvnw io.quarkus.platform:quarkus-maven-plugin:3.16.1:update -N$']
-
+  "autodiscoverFilter": ["scrocquesel/george-test"],
+  "allowedPostUpgradeCommands": ['^.*$'],
 };
