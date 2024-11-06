@@ -1,7 +1,10 @@
 name: Renovate
 on:
   workflow_dispatch:
-
+permissions: 
+  actions: write
+  id-token: write
+  contents: write
 jobs:
   renovate:
     runs-on: ubuntu-latest
