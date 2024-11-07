@@ -5,8 +5,8 @@
     "commands": [
       "pwd",
       "ls -lha",
-      "docker run --volume ./:/usr/src/myapp -w /usr/src/myapp --rm openjdk:17 pwd",
-      "docker run --volume ./:/usr/src/myapp -w /usr/src/myapp --rm openjdk:17 ls -lha"],
+      "docker run --volume /tmp/renovate/repos/github/scrocquesel/george-test:/usr/src/myapp -w /usr/src/myapp --rm openjdk:17 pwd",
+      "docker run --volume /tmp/renovate/repos/github/scrocquesel/george-test:/usr/src/myapp -w /usr/src/myapp --rm openjdk:17 ls -lha"],
     "fileFilters": ["pom.xml"],
     "executionMode": "update"
   }
