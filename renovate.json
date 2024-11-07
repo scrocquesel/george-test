@@ -2,7 +2,11 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "prHourlyLimit": 0,
   "postUpgradeTasks": {
-    "commands": ["docker run --volume ./:/usr/src/myapp -w /usr/src/myapp --rm openjdk:17 ls -lha"],
+    "commands": [
+      "pwd",
+      "ls -lha",
+      "docker run --volume ./:/usr/src/myapp -w /usr/src/myapp --rm openjdk:17 pwd",
+      "docker run --volume ./:/usr/src/myapp -w /usr/src/myapp --rm openjdk:17 ls -lha"],
     "fileFilters": ["pom.xml"],
     "executionMode": "update"
   }
