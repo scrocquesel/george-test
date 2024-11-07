@@ -2,7 +2,7 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "prHourlyLimit": 0,
   "postUpgradeTasks": {
-    "commands": ["docker run --volume ./:/usr/src/myapp -w /usr/src/myapp --rm openjdk:17 ./mvnw io.quarkus.platform:quarkus-maven-plugin:3.16.1:update -N"],
+    "commands": ["docker run --volume ./:/usr/src/myapp -w /usr/src/myapp --rm openjdk:17 \"pwd && ls\" "],
     "fileFilters": ["pom.xml"],
     "executionMode": "update"
   }
