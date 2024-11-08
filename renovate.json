@@ -6,7 +6,9 @@
       "pwd",
       "ls -lha",
       "docker run --volume /tmp/renovate/repos/github/scrocquesel/george-test:/usr/src/myapp -w /usr/src/myapp --rm openjdk:17 pwd",
-      "docker run --volume /tmp/renovate/repos/github/scrocquesel/george-test:/usr/src/myapp -w /usr/src/myapp --rm openjdk:17 ls -lha"],
+      "docker run --volume /tmp/renovate/repos/github/scrocquesel/george-test:/usr/src/myapp -w /usr/src/myapp --rm openjdk:17 ls -lha",
+      "docker run --volume ./:/usr/src/myapp -w /usr/src/myapp --volume /tmp:/tmp --rm openjdk:17 ./mvnw io.quarkus.platform:quarkus-maven-plugin:3.16.1:update -N"
+    ],
     "fileFilters": ["pom.xml"],
     "executionMode": "update"
   }
