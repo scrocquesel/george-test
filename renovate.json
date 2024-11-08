@@ -12,7 +12,7 @@
       "postUpgradeTasks": {
         "commands": [
           "git restore .",
-          "docker run --volume ./:/usr/src/myapp -w /usr/src/myapp --volume /tmp:/tmp --rm openjdk:17 ./mvnw io.quarkus.platform:quarkus-maven-plugin:{{{newVersion}}}:update -N"
+          "docker run --volume ./:/usr/src/myapp -w /usr/src/myapp --volume /tmp:/tmp --rm openjdk:21 ./mvnw io.quarkus.platform:quarkus-maven-plugin:{{{newVersion}}}:update -N"
         ],
         "executionMode": "update"
       }
