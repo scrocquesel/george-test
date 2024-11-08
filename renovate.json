@@ -3,6 +3,9 @@
   "prHourlyLimit": 0,
   "packageRules": [
     {
+      "matchDatasources": [
+        "maven"
+      ],
       "matchPackageNames": [
         "io.quarkus.platform:quarkus-bom"
       ],
@@ -11,7 +14,7 @@
           "git revert HEAD --no-commit;",
           "docker run --volume ./:/usr/src/myapp -w /usr/src/myapp --volume /tmp:/tmp --rm openjdk:17 ./mvnw io.quarkus.platform:quarkus-maven-plugin:{{{newVersion}}}:update -N"
         ],
-        "executionMode": "branch"
+        "executionMode": "update"
       }
     }
   ]
